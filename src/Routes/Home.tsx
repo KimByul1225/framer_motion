@@ -3,7 +3,7 @@ import React from 'react';
 function Home() {
     return (
         <div style={{
-            backgroundColor: "black",
+            backgroundColor: "#555",
             height: "200vh"
         }}>
             

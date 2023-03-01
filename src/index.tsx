@@ -40,6 +40,7 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
+  height: 200vh;
 }
 menu, ol, ul {
   list-style: none;
