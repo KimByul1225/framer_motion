@@ -42,7 +42,6 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
-  height: 200vh;
 }
 menu, ol, ul {
   list-style: none;
@@ -65,9 +64,9 @@ table {
 body {
   font-weight: 300;
   font-family: 'Source Sans Pro', sans-serif;
-  color:black;
+  color: ${(props) => props.theme.white.darker};
   line-height: 1.2;
-  
+  background-color: black;
 }
 a {
   text-decoration:none;
@@ -81,9 +80,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-        <GlobalStyle />
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
+              <GlobalStyle />
               <App />
             </ThemeProvider>
         </QueryClientProvider>
