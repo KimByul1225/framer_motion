@@ -113,9 +113,7 @@ function Header() {
     const tvMatch = useMatch("tv");
     const inputAnimaion = useAnimation();
     const navAnimaion = useAnimation();
-
-    const {scrollY, scrollYProgress} = useScroll();
-
+    const {scrollY} = useScroll();
     const toggleSearch = () => {
         if(searchOpen){
             inputAnimaion.start({
