@@ -1,8 +1,9 @@
 
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useAnimation, useScroll, useMotionValueEvent } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Nav = styled(motion.nav)`
     display: flex;
@@ -50,7 +51,7 @@ const Item = styled.li`
     }
 `;
 
-const Search = styled.span`
+const Search = styled.form`
     color: white;
     cursor: pointer;
     display: flex;
@@ -106,6 +107,9 @@ const navVariants = {
         backgroundColor: "rgba(0,0,0,1)"
     }
 }
+interface IForm {
+    keyword: string;
+}
 
 function Header() {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -113,7 +117,16 @@ function Header() {
     const tvMatch = useMatch("tv");
     const inputAnimaion = useAnimation();
     const navAnimaion = useAnimation();
+    const history = useNavigate();
+
     const {scrollY} = useScroll();
+
+    const {register, handleSubmit} = useForm<IForm>()
+    const onValid = (data:IForm) => {
+        console.log(data);
+        history(`/search?keyword=${data.keyword}`);
+    }
+
     const toggleSearch = () => {
         if(searchOpen){
             inputAnimaion.start({
@@ -169,7 +182,9 @@ function Header() {
                 </Items>
             </Col>
             <Col>
-                <Search>
+                <Search
+                    onSubmit={handleSubmit(onValid)}
+                >
                     <motion.svg
                         onClick={toggleSearch}
                         animate={{
@@ -187,6 +202,7 @@ function Header() {
                         ></path>
                     </motion.svg>
                     <Input
+                        {...register("keyword", {required:true, minLength:2})}
                         placeholder="검색"
                         initial={{scaleX: 0}}
                         animate={inputAnimaion}
